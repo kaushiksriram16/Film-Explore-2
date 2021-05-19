@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <h6 class="card-title"> {{movie.original_title}} </h6>
                     <p><b>Release date</b>: {{movie.release_date}} </p>
-                    <button (click)="saveMoviesLocal(movie.original_title,movie.release_date,ImgLink+movie.poster_path, movie.id)" class="btn btn-primary btn-sm">Bookmark It</button>
+                    <button (click)="OnClick(movie.original_title,movie.release_date,ImgLink+movie.poster_path, movie.id)" class="btn btn-primary btn-sm">Bookmark It</button>
                 </div>
             </div>
         </div>

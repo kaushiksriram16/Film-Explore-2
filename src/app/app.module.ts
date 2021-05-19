@@ -11,7 +11,8 @@ import {HomeComponent} from './components/home/home.component';
 import {SearchBarComponent} from './components/search-bar/search-bar.component';
 import {BookMarkComponent} from './components/book-mark/book-mark.component';
 import { HeaderComponent } from './components/header/header.component';
-import { MovieComponent } from './components/movie/movie.component'
+import { MovieComponent } from './components/movie/movie.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MovieComponent } from './components/movie/movie.component'
     NbEvaIconsModule,
     NbCardModule,
     NbFormFieldModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

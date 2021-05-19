@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h6 class="card-title"> {{movie.Title}} </h6>
                     <p><b>Release date</b>: {{movie.Year}} </p>
-                    <button (click)="saveMoviesLocal(movie.Title, movie.Year, movie.Poster, movie.imdbID)" class="btn btn-primary btn-sm">Bookmark It</button>
+                    <button (click)="OnClick(movie.Title, movie.Year, movie.Poster, movie.imdbID)" class="btn btn-primary btn-sm">Bookmark It</button>
                 </div>
             </div>
         </div>

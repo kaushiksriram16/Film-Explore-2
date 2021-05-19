@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
+import { MovieDataService } from 'src/app/services/movie-data.service';
 
 
 @Component({
@@ -8,59 +9,33 @@ import Swal from 'sweetalert2';
   styleUrls: ['./search-bar.component.css'],
 })
 export class SearchBarComponent implements OnInit {
+  constructor(private service: MovieDataService, private http:HttpClient) {}
 
   // Initialising array to populate movies which we will get on searching:
   Movies: any[];
 
   // API link of TMdb which is used to fetch the movies which the user searches:
   getMovieData(val) {
-    fetch('https://omdbapi.com/?apikey=9848bbf1&type=movie&r=json&s=' + val)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.Movies = data.Search;
-      });
+
+    let ApiLink = 'https://omdbapi.com/?apikey=9848bbf1&type=movie&r=json&s=' + val;
+
+    // fetch('https://omdbapi.com/?apikey=9848bbf1&type=movie&r=json&s=' + val)
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     this.Movies = data.Search;
+    //   });
+
+    // Used http get() method instead of fetch() to fetch the movies:
+      this.http.get(ApiLink).toPromise().then((response)=>{
+      this.Movies = JSON.parse(JSON.stringify(response)).Search;
+    })
   }
 
   // Function inorder to save the movies to the bookmarks which are fetched on searching:
-  saveMoviesLocal(title, year, poster, imdbId) {
-    
-    let Movie = {
-      Title: title,
-      Year: year,
-      Poster: poster,
-      ImdbId: imdbId,
-    };
-    let BookmarkedMovies = [];
-    let Ids = [];
-
-    if (localStorage.getItem('BookmarkedMovies')) {
-      BookmarkedMovies = JSON.parse(localStorage.getItem('BookmarkedMovies'));
-      Ids = JSON.parse(localStorage.getItem('Ids'));
-      if (!Ids.includes(Movie.ImdbId)) {
-        BookmarkedMovies = [Movie, ...BookmarkedMovies];
-        Ids = [Movie.ImdbId, ...Ids];
-        Swal.fire({
-          title: '<b style="color:grey"> Bookmarked! </b>',
-          text: 'Succesfully Added to your Library',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
-      } else {
-        Swal.fire({
-          title: '<b style="color:grey"> Exists! </b>',
-          text: 'This movie is already added to Bookmarks',
-          icon: 'warning',
-          confirmButtonText: 'OK',
-        });
-      }
-    } else {
-      BookmarkedMovies = [Movie];
-      Ids = [Movie.ImdbId];
-    }
-    localStorage.setItem('BookmarkedMovies', JSON.stringify(BookmarkedMovies));
-    localStorage.setItem('Ids', JSON.stringify(Ids));
+  OnClick(title, year, poster, imdbId) {
+    this.service.saveMoviesLocal(title, year, poster, imdbId);
   }
 
   ngOnInit(): void {}
