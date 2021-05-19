@@ -1,0 +1,33 @@
+    <nb-layout>
+    
+    <nb-layout-header > 
+        <app-header></app-header>
+    </nb-layout-header>
+
+    <nb-layout-column>
+        <form class="text-center">
+            <!-- Below one is the search bar which allows user to search the movie by triggering the function getMovieData() on Typing(event)  -->
+            <input type="text" (keyup)= "getMovieData($event.target.value)" placeholder="Which movie are you looking for?" class="form-control " name="search-bar" id="search-bar">
+        </form>
+
+    <!-- Below code takes the Array of movies and displays each movie in the form of a bootstrap card in the container-->
+    <div class="container">
+        <div *ngFor="let movie of Movies">
+            <div class="card bg-dark text-center animate-bottom" style="width:230px;">
+                <img src={{movie.Poster}}  class="card-img-top"  >
+                <div class="card-body">
+                    <h6 class="card-title"> {{movie.Title}} </h6>
+                    <p><b>Release date</b>: {{movie.Year}} </p>
+                    <button (click)="saveMoviesLocal(movie.Title, movie.Year, movie.Poster, movie.imdbID)" class="btn btn-primary btn-sm">Bookmark It</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </nb-layout-column>
+
+    <nb-layout-footer>
+            <p>Film-Explore  &copy; Copyright 2020, All rights reserved.</p>
+     </nb-layout-footer>
+
+</nb-layout>

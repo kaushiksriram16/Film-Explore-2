@@ -1,0 +1,40 @@
+<nb-layout>
+
+    <nb-layout-header > 
+        <app-header></app-header>
+    </nb-layout-header>
+   
+   <!-- Header for the Home Page -->
+   <nb-layout-column  class="colored-column-primary">
+
+    <nb-card class="sub-header text-center">
+        <nb-card-body>
+            <h1>Film-Explore</h1>
+            <p><a href="/search">search</a> for the movies you like and bookmark them..</p>
+        </nb-card-body>
+    </nb-card>
+
+    <nb-card class= "text-center ph"><h3>Recent popular movies</h3></nb-card>
+
+    <div class="container" onload="getMovieData()">
+
+    <!-- Below code takes the Array of Popular movies and displays each movie in the form of a bootstrap card in the container-->
+        <div *ngFor="let movie of PopularMovies">
+            <div class="card bg-dark text-center animate-bottom" style="width:230px;">
+                <img src={{ImgLink+movie.poster_path}}  class="card-img-top"  >
+                <div class="card-body">
+                    <h6 class="card-title"> {{movie.original_title}} </h6>
+                    <p><b>Release date</b>: {{movie.release_date}} </p>
+                    <button (click)="saveMoviesLocal(movie.original_title,movie.release_date,ImgLink+movie.poster_path, movie.id)" class="btn btn-primary btn-sm">Bookmark It</button>
+                </div>
+            </div>
+        </div>
+      </div>
+
+    </nb-layout-column>
+
+     <nb-layout-footer>
+            <p>Film-Explore  &copy; Copyright 2020, All rights reserved.</p>
+     </nb-layout-footer>
+
+</nb-layout>
